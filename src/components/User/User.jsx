@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { Card, List, Avatar } from 'antd'
+import { connect } from 'react-redux'
+import { getUserList } from '../../actions/user'
+import './User.less'
 
-const userData = [
+const userData1 = [
   {
     name: 'kpl',
     point: 100
@@ -20,20 +23,30 @@ const userData = [
   }
 ]
 
+@connect(
+  state => state.user,
+  { getUserList }
+)
 class User extends Component {
+  componentDidMount () {
+    this.props.getUserList('genius')
+  }
   render () {
     return (
       <div className='user'>
         <Card title='会员积分榜' type='inner'>
           <List
-            dataSource={userData}
+            // dataSource={this.props.list}
+            dataSource={userData1}
             renderItem={item => (
               <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar icon='idcard' />}
-                  title={item.name}
-                />
-                <div>{item.point}</div>
+                <div className='user-item'>
+                  <div className='item-left'>
+                    <Avatar icon='idcard' />
+                    <div>{item.point}</div>
+                  </div>
+                  <div className='item-right'>{item.point}</div>
+                </div>
               </List.Item>
             )}
           />

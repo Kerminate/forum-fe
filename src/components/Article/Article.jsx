@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Card } from 'antd'
+import { Card, List, Avatar } from 'antd'
+import './Article.less'
 
 const tabListNoTitle = [{
   key: 'all',
@@ -26,6 +27,22 @@ const contentListNoTitle = {
   station: <p>station content</p>
 }
 
+const postData = [
+  {
+    title: 'dsgsdg',
+    content: 'addsgsd',
+    author_id: 'kpl'
+  }, {
+    title: 'sgnd',
+    content: 'asgsdg',
+    author_id: '123'
+  }, {
+    title: 'sdg',
+    content: 'sdg sdmg dsg',
+    author_id: 'ki'
+  }
+]
+
 class Article extends Component {
   constructor (props) {
     super(props)
@@ -49,6 +66,19 @@ class Article extends Component {
         onTabChange={(key) => { this.onTabChange(key, 'noTitleKey') }}
       >
         {contentListNoTitle[this.state.noTitleKey]}
+        <List
+          dataSource={postData}
+          renderItem={item => (
+            <List.Item key={item.id}>
+              <List.Item.Meta
+                avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon='user' />}
+                title={item.title}
+                description={item.content}
+              />
+              <div>{item.author_id}</div>
+            </List.Item>
+          )}
+        />
       </Card>
     )
   }
