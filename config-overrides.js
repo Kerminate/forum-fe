@@ -1,9 +1,7 @@
 const { injectBabelPlugin } = require('react-app-rewired')
 const rewireLess = require('react-app-rewire-less')
-// const rewireEslint = require('react-app-rewire-eslint')
 
 module.exports = function override (config, env) {
-  // config = rewireEslint(config, env);
   config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config)
   config = injectBabelPlugin('transform-decorators-legacy', config)
   config = rewireLess.withLoaderOptions({

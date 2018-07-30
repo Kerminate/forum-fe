@@ -1,27 +1,28 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Card, List, Avatar } from 'antd'
 import { connect } from 'react-redux'
 import { getUserList } from '../../actions/user'
 import './User.less'
 
-const userData1 = [
-  {
-    name: 'kpl',
-    point: 100
-  },
-  {
-    name: 'sdgf',
-    point: 10
-  },
-  {
-    name: 'uef',
-    point: 134
-  },
-  {
-    name: 'sdg',
-    point: 24
-  }
-]
+// const userData1 = [
+//   {
+//     name: 'kpl',
+//     point: 100
+//   },
+//   {
+//     name: 'sdgf',
+//     point: 10
+//   },
+//   {
+//     name: 'uef',
+//     point: 134
+//   },
+//   {
+//     name: 'sdg',
+//     point: 24
+//   }
+// ]
 
 @connect(
   state => state.user,
@@ -29,7 +30,7 @@ const userData1 = [
 )
 class User extends Component {
   componentDidMount () {
-    this.props.getUserList('genius')
+    this.props.getUserList()
   }
   render () {
     return (
@@ -37,15 +38,15 @@ class User extends Component {
         <Card title='会员积分榜' type='inner'>
           <List
             // dataSource={this.props.list}
-            dataSource={userData1}
+            dataSource={this.props.list}
             renderItem={item => (
               <List.Item>
                 <div className='user-item'>
                   <div className='item-left'>
                     <Avatar icon='idcard' />
-                    <div>{item.point}</div>
+                    <div>{item.username}</div>
                   </div>
-                  <div className='item-right'>{item.point}</div>
+                  <div className='item-right'>{item.score}</div>
                 </div>
               </List.Item>
             )}
@@ -54,6 +55,11 @@ class User extends Component {
       </div>
     )
   }
+}
+
+User.propTypes = {
+  getUserList: PropTypes.func,
+  list: PropTypes.array
 }
 
 export default User
