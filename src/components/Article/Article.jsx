@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Card, List, Avatar } from 'antd'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { getTopicList } from '../../actions/topic'
 import './Article.less'
 
 const tabListNoTitle = [{
@@ -27,28 +30,35 @@ const contentListNoTitle = {
   station: <p>station content</p>
 }
 
-const postData = [
-  {
-    title: 'dsgsdg',
-    content: 'addsgsd',
-    author_id: 'kpl'
-  }, {
-    title: 'sgnd',
-    content: 'asgsdg',
-    author_id: '123'
-  }, {
-    title: 'sdg',
-    content: 'sdg sdmg dsg',
-    author_id: 'ki'
-  }
-]
-
+// const postData = [
+//   {
+//     title: 'dsgsdg',
+//     content: 'addsgsd',
+//     author_id: 'kpl'
+//   }, {
+//     title: 'sgnd',
+//     content: 'asgsdg',
+//     author_id: '123'
+//   }, {
+//     title: 'sdg',
+//     content: 'sdg sdmg dsg',
+//     author_id: 'ki'
+//   }
+// ]
+@connect(
+  state => state.topic,
+  { getTopicList }
+)
 class Article extends Component {
   constructor (props) {
     super(props)
     this.state = {
       noTitleKey: 'all'
     }
+  }
+
+  componentDidMount () {
+    this.props.getTopicList()
   }
 
   onTabChange (key, type) {
@@ -67,9 +77,9 @@ class Article extends Component {
       >
         {contentListNoTitle[this.state.noTitleKey]}
         <List
-          dataSource={postData}
+          dataSource={this.props.topicList}
           renderItem={item => (
-            <List.Item key={item.id}>
+            <List.Item key={item._id}>
               <List.Item.Meta
                 avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon='user' />}
                 title={item.title}
@@ -82,6 +92,11 @@ class Article extends Component {
       </Card>
     )
   }
+}
+
+Article.propTypes = {
+  getTopicList: PropTypes.func,
+  topicList: PropTypes.array
 }
 
 export default Article

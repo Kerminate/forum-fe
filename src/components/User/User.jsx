@@ -5,25 +5,6 @@ import { connect } from 'react-redux'
 import { getUserList } from '../../actions/user'
 import './User.less'
 
-// const userData1 = [
-//   {
-//     name: 'kpl',
-//     point: 100
-//   },
-//   {
-//     name: 'sdgf',
-//     point: 10
-//   },
-//   {
-//     name: 'uef',
-//     point: 134
-//   },
-//   {
-//     name: 'sdg',
-//     point: 24
-//   }
-// ]
-
 @connect(
   state => state.user,
   { getUserList }
@@ -38,7 +19,7 @@ class User extends Component {
         <Card title='会员积分榜' type='inner'>
           <List
             // dataSource={this.props.list}
-            dataSource={this.props.list}
+            dataSource={this.props.userList}
             renderItem={item => (
               <List.Item>
                 <div className='user-item'>
@@ -59,7 +40,7 @@ class User extends Component {
 
 User.propTypes = {
   getUserList: PropTypes.func,
-  list: PropTypes.array
+  userList: PropTypes.array
 }
 
 export default User

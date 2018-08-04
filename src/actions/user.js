@@ -31,7 +31,7 @@ export function login ({ user, pwd }) {
 
 export function getUserList () {
   return (dispatch, getState) => {
-    axios.get('/list')
+    axios.get('/user/list')
       .then((res) => {
         if (res.status === 200) {
           dispatch(userList(res.data))

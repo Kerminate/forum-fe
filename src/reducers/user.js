@@ -1,7 +1,7 @@
 import * as types from '../types'
 
 const initState = {
-  list: [],
+  userList: [],
   user: {}
 }
 
@@ -10,7 +10,7 @@ export function user (state = initState, action) {
     case types.AUTH_SUCCESS:
       return { ...state, ...action.payload }
     case types.GET_USER_LIST:
-      return { ...state, ...action.payload }
+      return { ...state, userList: action.payload.list }
     default:
       return state
   }
